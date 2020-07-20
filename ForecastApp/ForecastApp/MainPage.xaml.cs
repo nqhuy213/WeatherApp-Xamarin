@@ -1,9 +1,11 @@
-﻿using System;
+﻿using ForecastApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ForecastApp
@@ -16,6 +18,19 @@ namespace ForecastApp
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = Resolver.Resolve<MainViewModel>();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if(BindingContext is MainViewModel viewModel)
+            {
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await viewModel.LoadData();
+                });
+            }
         }
     }
 }
