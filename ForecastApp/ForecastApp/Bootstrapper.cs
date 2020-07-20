@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using ForecastApp.Services;
 using ForecastApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace ForecastApp
             {
                 containerBuilder.RegisterType(type.AsType());
             }
-            
+            containerBuilder.RegisterType<OpenWeatherService>().As<IWeatherService>();
         }
         public void FinishInitialization()
         {

@@ -34,5 +34,7 @@
     <string>ForecastApp</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We are using your location to find a forecast for you</string>
 </dict>
 </plist>
