@@ -16,17 +16,17 @@ namespace ForecastApp.Services
 
         public Task InitializeAsync()
         {
-            throw new NotImplementedException();
+            return NavigateToAsync<MainViewModel>();
         }
 
         public Task NavigateToAsync<TViewModel>() where TViewModel : BaseViewModel
         {
-            throw new NotImplementedException();
+            return InternalNavigateToAsync(typeof(TViewModel), null);
         }
 
         public Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel
         {
-            throw new NotImplementedException();
+            return InternalNavigateToAsync(typeof(TViewModel), parameter);
         }
 
         public Task RemoveBackStackAsync()
@@ -43,7 +43,7 @@ namespace ForecastApp.Services
         {
             Page page = CreatePage(viewModelType, parameter);
 
-            if (page is MainView)
+            if (page is MainView || page is MainView_Android)
             {
                 Application.Current.MainPage = new CustomNavigationView(page);
             }
@@ -65,7 +65,15 @@ namespace ForecastApp.Services
 
         private Type GetPageTypeForViewModel(Type viewModelType)
         {
-            var viewName = viewModelType.FullName.Replace("Model", string.Empty);
+            var viewName = "";
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                viewName = viewModelType.FullName.Replace("Model", string.Empty) + "_Android";
+            }
+            else
+            {
+                viewName = viewModelType.FullName.Replace("Model", string.Empty);
+            }
             var viewModelAssemblyName = viewModelType.GetTypeInfo().Assembly.FullName;
             var viewAssemblyName = string.Format(
                         CultureInfo.InvariantCulture, "{0}, {1}", viewName, viewModelAssemblyName);

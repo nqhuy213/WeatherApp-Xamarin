@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ForecastApp.Services;
+using ForecastApp.Views;
+using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,8 +12,7 @@ namespace ForecastApp
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage( new MainPage());
+            InitNavigation();
         }
 
         protected override void OnStart()
@@ -23,6 +25,11 @@ namespace ForecastApp
 
         protected override void OnResume()
         {
+        }
+        private Task InitNavigation()
+        {
+            var navigationService = Resolver.Resolve<INavigationService>();
+            return navigationService.InitializeAsync();
         }
     }
 }

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace ForecastApp
+namespace ForecastApp.Views
 {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
-    public partial class MainPage : ContentPage
+    public partial class MainView : ContentPage
     {
-        public MainPage()
+        public MainView()
         {
             InitializeComponent();
             BindingContext = Resolver.Resolve<MainViewModel>();

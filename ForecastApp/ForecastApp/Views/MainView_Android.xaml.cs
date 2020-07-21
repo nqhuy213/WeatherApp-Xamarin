@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForecastApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,16 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace ForecastApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CustomNavigationView : NavigationPage
+    public partial class MainView_Android : ContentPage
     {
-        public CustomNavigationView(): base()
+        public MainView_Android()
         {
             InitializeComponent();
-        }
-
-        public CustomNavigationView(Page root) : base(root)
-        {
-            InitializeComponent();
+            BindingContext = Resolver.Resolve<MainViewModel>();
         }
     }
 }

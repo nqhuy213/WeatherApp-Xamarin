@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              Title="{Binding City}"
-             x:Class="ForecastApp.MainPage">
+             x:Class="ForecastApp.Views.MainView">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="refresh.png" Text="Refresh" Command="{Binding Refresh}" />
     </ContentPage.ToolbarItems>
