@@ -18,7 +18,7 @@ namespace ForecastApp.Services
             var apiKey = "bd8709b8c8a3cf22db8fc53027289d96";
             var uri = $"https://api.openweathermap.org/data/2.5/forecast?" +
                 $"lat={latitude}&lon={longtitude}" +
-                $"&units=metrics&lang={language}&appid={apiKey}";
+                $"&units=metric&lang={language}&appid={apiKey}";
             var client = new HttpClient();
             var result = await client.GetStringAsync(uri);
             var data = JsonConvert.DeserializeObject<WeatherData>(result);
@@ -31,7 +31,7 @@ namespace ForecastApp.Services
                     Temperature = x.main.temp,
                     WindSpeed = x.wind.speed,
                     Description = x.weather.First().description,
-                    Icon = $"http://openweathermap.org/img/w/{x.weather.First().icon}.png"
+                    Icon = $"https://openweathermap.org/img/w/{x.weather.First().icon}.png"
                 }).ToList()
             };
             return forecast;

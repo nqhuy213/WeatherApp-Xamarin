@@ -6,13 +6,25 @@
              mc:Ignorable="d"
              Title="{Binding City}"
              x:Class="ForecastApp.MainPage">
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="refresh.png" Text="Refresh" Command="{Binding Refresh}" />
+    </ContentPage.ToolbarItems>
     <Grid>
+        <Image Aspect="AspectFill">
+            <Image.Source>
+                <UriImageSource Uri="https://upload.wikimedia.org/wikipedia/commons/7/79/Solnedg%C3%A5ng_%C3%B6ver_Laholmsbukten_augusti_2011.jpg"
+                                CachingEnabled="true" CacheValidity="1" />
+            </Image.Source>
+        </Image>
+        <Frame IsVisible="{Binding IsRefreshing}" BackgroundColor="#99FFFFFF" 
+                VerticalOptions="Center" 
+               HorizontalOptions="Center">
+            <ActivityIndicator Color="Black" IsRunning="True" />
+        </Frame>
         <ScrollView BackgroundColor="Transparent">
             <FlexLayout BindableLayout.ItemsSource="{Binding Days}" Direction="Column">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <!--Content will be added here -->
                         <StackLayout>
                             <ContentView Padding="10" BackgroundColor="#9F5010">
                                 <Label Text="{Binding DateAsString}" TextColor="White" FontAttributes="Bold" />
@@ -40,5 +52,4 @@
             </FlexLayout>
         </ScrollView>
     </Grid>
-
 </ContentPage>

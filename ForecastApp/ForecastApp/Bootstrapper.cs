@@ -21,6 +21,7 @@ namespace ForecastApp
         }
         protected virtual void Init()
         {
+            
             containerBuilder = new ContainerBuilder();
             var currentAssembly = Assembly.GetExecutingAssembly();
             foreach (var type in currentAssembly.DefinedTypes.Where(e => e.IsSubclassOf(typeof(Page)) || e.IsSubclassOf(typeof(BaseViewModel))))
@@ -28,6 +29,7 @@ namespace ForecastApp
                 containerBuilder.RegisterType(type.AsType());
             }
             containerBuilder.RegisterType<OpenWeatherService>().As<IWeatherService>();
+            containerBuilder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
         }
         public void FinishInitialization()
         {
