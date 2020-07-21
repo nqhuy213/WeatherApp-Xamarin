@@ -12,7 +12,7 @@ namespace ForecastApp.Services
 {
     public class NavigationService : INavigationService
     {
-        public BaseViewModel PreviousPageViewModel => throw new NotImplementedException();
+        public BaseViewModel PreviousPageViewModel { get; }
 
         public Task InitializeAsync()
         {
@@ -63,6 +63,11 @@ namespace ForecastApp.Services
             await (page.BindingContext as BaseViewModel).InitializeAsync(parameter);
         }
 
+        /// <summary>
+        /// Get Page Type base on the ViewModelType
+        /// </summary>
+        /// <param name="viewModelType">Type of the ViewModel</param>
+        /// <returns>Type of the View</returns>
         private Type GetPageTypeForViewModel(Type viewModelType)
         {
             var viewName = "";
@@ -75,12 +80,17 @@ namespace ForecastApp.Services
                 viewName = viewModelType.FullName.Replace("Model", string.Empty);
             }
             var viewModelAssemblyName = viewModelType.GetTypeInfo().Assembly.FullName;
-            var viewAssemblyName = string.Format(
-                        CultureInfo.InvariantCulture, "{0}, {1}", viewName, viewModelAssemblyName);
+            var viewAssemblyName = string.Format(CultureInfo.InvariantCulture, "{0}, {1}", viewName, viewModelAssemblyName);
             var viewType = Type.GetType(viewAssemblyName);
             return viewType;
         }
 
+        /// <summary>
+        /// Create an instance of Page base on the viewModelType
+        /// </summary>
+        /// <param name="viewModelType">Type of the ViewModel</param>
+        /// <param name="parameter">Parameter for the ViewModel</param>
+        /// <returns>An instance of the page</returns>
         private Page CreatePage(Type viewModelType, object parameter)
         {
             Type pageType = GetPageTypeForViewModel(viewModelType);

@@ -4,12 +4,47 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             Title="{Binding City, StringFormat='{0} Android'}"
              x:Class="ForecastApp.Views.MainView_Android">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Android View"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+
+    <Grid>
+        <Image Aspect="AspectFill">
+            <Image.Source>
+                <UriImageSource Uri="https://upload.wikimedia.org/wikipedia/commons/7/79/Solnedg%C3%A5ng_%C3%B6ver_Laholmsbukten_augusti_2011.jpg"
+                                CachingEnabled="true" CacheValidity="1" />
+            </Image.Source>
+        </Image>
+        <RefreshView Command="{Binding Refresh}" IsRefreshing="{Binding IsRefreshing}">
+            <ScrollView BackgroundColor="Transparent">
+                <FlexLayout BindableLayout.ItemsSource="{Binding Days}" Direction="Column">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <ContentView Padding="10" BackgroundColor="#9F5010">
+                                    <Label Text="{Binding DateAsString}" TextColor="White" FontAttributes="Bold" />
+                                </ContentView>
+                                <FlexLayout BindableLayout.ItemsSource="{Binding Items}" Wrap="Wrap" JustifyContent="Start" AlignItems="Start">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout Margin="10" Padding="20" WidthRequest="150" BackgroundColor="#99FFFFFF">
+                                                <Label FontSize="16" FontAttributes="Bold" 
+                                                       Text="{Binding TimeAsString}" HorizontalOptions="Center" />
+                                                <Image WidthRequest="100" HeightRequest="100"
+                                                       Aspect="AspectFit" HorizontalOptions="Center" Source="{Binding Icon}" />
+                                                <Label FontSize="14" FontAttributes="Bold" 
+                                                       Text="{Binding Temperature, StringFormat='{0}° C'}" 
+                                                       HorizontalOptions="Center" />
+                                                <Label FontSize="14" FontAttributes="Bold" 
+                                                       Text="{Binding Description}" HorizontalOptions="Center" />
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </FlexLayout>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
+        </RefreshView>
+    </Grid>
 </ContentPage>

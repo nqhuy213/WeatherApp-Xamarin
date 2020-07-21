@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,6 +17,17 @@ namespace ForecastApp.Views
         {
             InitializeComponent();
             BindingContext = Resolver.Resolve<MainViewModel>();
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                if(BindingContext is MainViewModel viewModel)
+                {
+                    await viewModel.LoadData();
+                }
+            });
         }
     }
 }
